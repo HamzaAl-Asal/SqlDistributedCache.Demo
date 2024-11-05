@@ -1,0 +1,6 @@
+@SqlDistributedCache.Demo_HostAddress = http://localhost:5236
+
+GET {{SqlDistributedCache.Demo_HostAddress}}/
+Accept: application/json
+
+###
