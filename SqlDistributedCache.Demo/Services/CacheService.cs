@@ -1,13 +1,12 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using SqlDistributedCache.Demo.Models;
-using System.Text;
 using System.Text.Json;
 
 namespace SqlDistributedCache.Demo.Services
 {
     public class CacheService : ICacheService
     {
-        private IDistributedCache distributedCache;
+        private readonly IDistributedCache distributedCache;
 
         public CacheService(IDistributedCache distributedCache)
         {
@@ -51,7 +50,7 @@ namespace SqlDistributedCache.Demo.Services
 
             var cacheOptions = new DistributedCacheEntryOptions
             {
-                AbsoluteExpiration = DateTime.UtcNow.AddMinutes(1)
+                AbsoluteExpiration = DateTime.UtcNow.AddDays(2)
             };
 
             var personsData = GetPersonsSeedData();
