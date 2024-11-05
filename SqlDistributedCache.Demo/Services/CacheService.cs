@@ -13,16 +13,16 @@ namespace SqlDistributedCache.Demo.Services
             this.distributedCache = distributedCache;
         }
 
-        public async Task<BaseResponse<List<Person>>> GetCacheAsync(string cache)
+        public async Task<BaseResponse<List<Person>>> GetCacheAsync(string cacheKey)
         {
-            if (string.IsNullOrWhiteSpace(cache))
+            if (string.IsNullOrWhiteSpace(cacheKey))
                 return new BaseResponse<List<Person>>(null)
                 {
                     Message = "Cache not found.",
                     StatusCode = BaseResponseStatusCode.NotFound
                 };
 
-            var response = await distributedCache.GetStringAsync(cache);
+            var response = await distributedCache.GetStringAsync(cacheKey);
             var deserializedResponse = JsonSerializer.Deserialize<List<Person>>(response) ?? new List<Person>();
 
             if (string.IsNullOrWhiteSpace(response))
@@ -39,9 +39,9 @@ namespace SqlDistributedCache.Demo.Services
             };
         }
 
-        public async Task<BaseResponse> SetCacheAsync(string cache)
+        public async Task<BaseResponse> SetCacheAsync(string cacheKey)
         {
-            if (string.IsNullOrWhiteSpace(cache))
+            if (string.IsNullOrWhiteSpace(cacheKey))
                 return new BaseResponse
                 {
                     Message = "You must provide cache name",
@@ -56,7 +56,7 @@ namespace SqlDistributedCache.Demo.Services
             var personsData = GetPersonsSeedData();
             var serializedData = JsonSerializer.Serialize(personsData);
 
-            await distributedCache.SetStringAsync(cache, serializedData, cacheOptions);
+            await distributedCache.SetStringAsync(cacheKey, serializedData, cacheOptions);
 
             return new BaseResponse
             {
@@ -65,16 +65,16 @@ namespace SqlDistributedCache.Demo.Services
             };
         }
 
-        public async Task<BaseResponse> DeleteCacheAsync(string cache)
+        public async Task<BaseResponse> DeleteCacheAsync(string cacheKey)
         {
-            if (string.IsNullOrWhiteSpace(cache))
+            if (string.IsNullOrWhiteSpace(cacheKey))
                 return new BaseResponse
                 {
-                    Message = "This cache does not exists!",
+                    Message = "This cache key does not exists!",
                     StatusCode = BaseResponseStatusCode.NotFound
                 };
 
-            await distributedCache.RemoveAsync(cache);
+            await distributedCache.RemoveAsync(cacheKey);
 
             return new BaseResponse
             {
