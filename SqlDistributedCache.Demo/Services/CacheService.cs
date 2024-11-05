@@ -90,15 +90,21 @@ namespace SqlDistributedCache.Demo.Services
             {
                 new Person
                 {
-                    Name = "Hamza",
+                    Name = "Person 1",
                     Age = 28,
                     Job = "Software Developer"
                 },
                 new Person
                 {
-                    Name = "Hamza",
-                    Age = 28,
-                    Job = "Software Developer"
+                    Name = "Person 2",
+                    Age = 27,
+                    Job = "HR"
+                },
+                new Person
+                {
+                    Name = "Person 3",
+                    Age = 30,
+                    Job = "Sales"
                 }
             };
 
